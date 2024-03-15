@@ -1,6 +1,12 @@
+import sys
 from ctypes import *
-sdl=cdll.LoadLibrary("libSDL-1.2.so.0")
-openb3d=cdll.LoadLibrary("./libOpenB3D.so")
+
+if sys.platform.startswith('win'):
+    sdl=cdll.LoadLibrary("SDL.dll")
+    openb3d=cdll.LoadLibrary("./OpenB3D.dll")
+elif sys.platform.startswith('linux'):
+    sdl=cdll.LoadLibrary("libSDL-1.2.so.0")
+    openb3d=cdll.LoadLibrary("./libOpenB3D.so")
 
 def Graphics3D(w,h,d=0,m=0):
 	sdl.SDL_Init(65535)

@@ -207,6 +207,11 @@ openb3d.CollisionZ.restype = c_float
 def CollisionZ(ent, index):
 	return openb3d.CollisionZ(ent, index)
 
+openb3d.CountBones.argtypes = [c_void_p]
+openb3d.CountBones.restype = c_int
+def CountBones(mesh):
+	return openb3d.CountBones(mesh)
+
 openb3d.CountChildren.argtypes = [c_void_p]
 openb3d.CountChildren.restype = c_int
 def CountChildren(ent):
@@ -542,6 +547,10 @@ openb3d.FreeEntity.argtypes = [c_void_p]
 def FreeEntity(ent):
 	openb3d.FreeEntity(ent)
 
+openb3d.FreePostFX.argtypes = [c_void_p]
+def FreePostFX(fx):
+	openb3d.FreePostFX(fx)
+
 openb3d.FreeRigidBody.argtypes = [c_void_p]
 def FreeRigidBody(body):
 	openb3d.FreeRigidBody(body)
@@ -561,6 +570,11 @@ def FreeTexture(tex):
 openb3d.GeosphereHeight.argtypes = [c_void_p, c_float]
 def GeosphereHeight(geo, h):
 	openb3d.GeosphereHeight(geo, h)
+
+openb3d.GetBone.argtypes = [c_void_p, c_int]
+openb3d.GetBone.restype = c_void_p
+def GetBone(mesh, bone_no):
+	return openb3d.GetBone(mesh, bone_no)
 
 openb3d.GetBrushTexture.argtypes = [c_void_p, c_int]
 openb3d.GetBrushTexture.restype = c_void_p
@@ -704,6 +718,11 @@ openb3d.ModifyTerrain.argtypes = [c_void_p, c_int, c_int, c_float]
 def ModifyTerrain(terr, x, z, height):
 	openb3d.ModifyTerrain(terr, x, z, height)
 
+openb3d.MoveBone.argtypes = [c_void_p, c_float, c_float, c_float, c_int]
+openb3d.MoveBone.restype = c_int
+def MoveBone(bone, x, y, z, segments):
+	return openb3d.MoveBone(bone, x, y, z, segments)
+
 openb3d.MoveEntity.argtypes = [c_void_p, c_float, c_float, c_float]
 def MoveEntity(ent, x, y, z):
 	openb3d.MoveEntity(ent, x, y, z)
@@ -780,6 +799,10 @@ openb3d.PointEntity.argtypes = [c_void_p, c_void_p, c_float]
 def PointEntity(ent, target, roll=0):
 	openb3d.PointEntity(ent, target, roll)
 
+openb3d.PositionBone.argtypes = [c_void_p, c_float, c_float, c_float]
+def PositionBone(bone, px, py, pz):
+	openb3d.PositionBone(bone, px, py, pz)
+
 openb3d.PositionEntity.argtypes = [c_void_p, c_float, c_float, c_float, c_bool]
 def PositionEntity(ent, x, y, z, glob=0):
 	openb3d.PositionEntity(ent, x, y, z, glob)
@@ -819,6 +842,10 @@ def ResetEntity(ent):
 openb3d.ResetShadow.argtypes = [c_void_p]
 def ResetShadow(s):
 	openb3d.ResetShadow(s)
+
+openb3d.RotateBone.argtypes = [c_void_p, c_float, c_float, c_float]
+def RotateBone(mesh, pitch, yaw, roll):
+	openb3d.RotateBone(mesh, pitch, yaw, roll)
 
 openb3d.RotateEntity.argtypes = [c_void_p, c_float, c_float, c_float, c_bool]
 def RotateEntity(ent, x, y, z, glob=0):
@@ -1203,18 +1230,28 @@ openb3d.CreateOcTree.restype = c_void_p
 def CreateOcTree(w, h, d, parent=0):
 	return openb3d.CreateOcTree(w, h, d, parent)
 
-openb3d.OctreeBlock.argtypes = [c_void_p, c_void_p, c_int, c_float, c_float, c_float, c_float, c_float]
-def OctreeBlock(octree, mesh, level, x, y, z, near=0, far=1000):
-	openb3d.OctreeBlock(octree, mesh, level, x, y, z, near, far)
+openb3d.OctreeBlock.argtypes = [c_void_p, c_void_p, c_int, c_float, c_float, c_float, c_float, c_float, c_int]
+def OctreeBlock(octree, mesh, level, x, y, z, near=0, far=1000, solid=1):
+	openb3d.OctreeBlock(octree, mesh, level, x, y, z, near, far, solid)
 
 openb3d.OctreeMesh.argtypes = [c_void_p, c_void_p, c_int, c_float, c_float, c_float, c_float, c_float]
-def OctreeBlock(octree, mesh, level, x, y, z, near=0, far=1000):
-	openb3d.OctreeBlock(octree, mesh, level, x, y, z, near, far)
+def OctreeMesh(octree, mesh, level, x, y, z, near=0, far=1000):
+	openb3d.OctreeMesh(octree, mesh, level, x, y, z, near, far)
 
 openb3d.CreateParticleEmitter.argtypes = [c_void_p, c_void_p]
 openb3d.CreateParticleEmitter.restype = c_void_p
 def CreateParticleEmitter(particle, parent=0):
 	return openb3d.CreateParticleEmitter(particle, parent)
+
+openb3d.ActStop.argtypes = [c_void_p]
+openb3d.ActStop.restype = c_void_p
+def ActStop(act2):
+	return openb3d.ActStop(act2)
+
+openb3d.ActWait.argtypes = [c_float]
+openb3d.ActWait.restype = c_void_p
+def ActWait(r):
+	return openb3d.ActWait(r)
 
 openb3d.ActMoveBy.argtypes = [c_void_p, c_float, c_float, c_float, c_float]
 openb3d.ActMoveBy.restype = c_void_p
@@ -1271,13 +1308,32 @@ openb3d.ActNewtonian.restype = c_void_p
 def ActNewtonian(ent, r):
 	return openb3d.ActNewtonian(ent, a, r)
 
+openb3d.TriggerCloseTo.argtypes = [c_void_p, c_float, c_float, c_float, c_float]
+openb3d.TriggerCloseTo.restype = c_void_p
+def TriggerCloseTo(ent, a, b, c, r):
+	return openb3d.TriggerCloseTo(ent, a, b, c, r)
+
+openb3d.TriggerDistance.argtypes = [c_void_p, c_void_p, c_float]
+openb3d.TriggerDistance.restype = c_void_p
+def TriggerDistance(ent, t, a ):
+	return openb3d.TriggerDistance(ent, t, a)
+
+openb3d.TriggerCollision.argtypes = [c_void_p, c_int]
+openb3d.TriggerCollision.restype = c_void_p
+def TriggerCollision(ent, t):
+	return openb3d.TriggerCollision(ent, t)
+
+openb3d.ActIterator.restype = c_void_p
+def ActIterator():
+	return openb3d.ActIterator()
+
 openb3d.AppendAction.argtypes = [c_void_p, c_void_p]
 def AppendAction(act1, act2):
 	return openb3d.AppendAction(act1, act2)
 
-openb3d.FreeAction.argtypes = [c_void_p]
-def FreeAction(act):
-	openb3d.FreeAction(act)
+openb3d.FreeAction.argtypes = [c_void_p, c_int]
+def FreeAction(act, g=0):
+	openb3d.FreeAction(act, g)
 
 def Flip():
 	sdl.SDL_GL_SwapBuffers()
